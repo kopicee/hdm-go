@@ -1,0 +1,17 @@
+package normalize
+
+import (
+	"strings"
+
+	"github.com/kopicee/hdm-go/lib/model"
+)
+
+func Normalize(h *model.Hotel) error {
+	h.Name = strings.TrimSpace(h.Name)
+	h.Description = strings.TrimSpace(h.Description)
+	h.Location = normalizeLocation(h.Location)
+	h.Amenities = normalizeAmenities(h.Amenities)
+	h.Images = normalizeImages(h.Images)
+
+	return nil
+}
