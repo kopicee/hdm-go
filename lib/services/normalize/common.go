@@ -3,6 +3,7 @@ package normalize
 import (
 	"strings"
 
+	"github.com/kopicee/hdm-go/functional"
 	"github.com/kopicee/hdm-go/lib/model"
 )
 
@@ -14,4 +15,11 @@ func Normalize(h *model.Hotel) error {
 	h.Images = normalizeImages(h.Images)
 
 	return nil
+}
+
+func removeEmpty(elems []string) []string {
+	return functional.Filter(
+		elems,
+		func(s string) bool { return len(strings.TrimSpace(s)) != 0 },
+	)
 }

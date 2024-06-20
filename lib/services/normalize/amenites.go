@@ -16,16 +16,15 @@ func normalizeAmenities(a model.Amenities) model.Amenities {
 }
 
 func normalizeAmenity(a model.Amenity) model.Amenity {
-	normalized := strings.TrimSpace(string(a))
-	if strings.EqualFold(normalized, "wifi") {
-		return model.Amenity(normalized)
+	s := string(a)
+	s = strings.TrimSpace(s)
+
+	if strings.EqualFold(s, "wifi") {
+		return model.Amenity("wifi")
 	}
 
-	normalized = strings.Join(splitByCamelCase(normalized), " ")
-	normalized = strings.ToLower(normalized)
-	return model.Amenity(normalized)
-}
-
-func splitByCamelCase(s string) []string {
-	return camelcase.Split(s)
+	s = strings.ToLower(s)
+	s = strings.Join(removeEmpty(camelcase.Split(s)), " ")
+	s = strings.ToLower(s)
+	return model.Amenity(s)
 }

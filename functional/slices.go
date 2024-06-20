@@ -36,3 +36,13 @@ func Map[T, U any](elems []T, mapFunc func(T) U) []U {
 func Typecast[TSource, TTarget any](obj TSource) TTarget {
 	return any(obj).(TTarget)
 }
+
+func Filter[T any](elems []T, predicate func(T) bool) []T {
+	ret := make([]T, 0)
+	for _, elem := range elems {
+		if predicate(elem) {
+			ret = append(ret, elem)
+		}
+	}
+	return ret
+}

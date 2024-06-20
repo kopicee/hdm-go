@@ -33,7 +33,7 @@ func normalizeCoords(lat, lng *float64) (*float64, *float64) {
 
 func normalizeAddress(s string) string {
 	parts := strings.Split(s, ",")
-	parts = functional.Map(parts, strings.TrimSpace)
+	parts = removeEmpty(functional.Map(parts, strings.TrimSpace))
 	return strings.Join(parts, ", ")
 }
 
@@ -43,5 +43,8 @@ func normalizeCity(s string) string {
 
 func normalizeCountry(s string) string {
 	country := countries.ByName(s)
+	if country == countries.Unknown {
+		return ""
+	}
 	return country.Info().Name
 }
