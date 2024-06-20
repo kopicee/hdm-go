@@ -8,6 +8,8 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
+var ErrBadQuery = errors.New("error parsing query")
+
 type baseController struct{}
 
 func (c baseController) respondJSON(ctx *gin.Context, statusCode int, result any) {
@@ -25,7 +27,7 @@ func (c baseController) Reject(ctx *gin.Context, err error) {
 
 	var statusCode int
 	switch {
-	case errors.Is(err, errBadQuery):
+	case errors.Is(err, ErrBadQuery):
 		statusCode = http.StatusBadRequest
 	default:
 		statusCode = http.StatusInternalServerError
@@ -34,7 +36,9 @@ func (c baseController) Reject(ctx *gin.Context, err error) {
 	c.respondJSON(ctx, statusCode, body)
 }
 
-var errBadQuery = errors.New("error parsing query")
+func newBadQuery(keyName string) error {
+	return fmt.Errorf("%w '%s'", ErrBadQuery, keyName)
+}
 
 func getQueryAs[T any](ctx *gin.Context, key string, parser func(string) (T, error)) ([]T, error) {
 	values := make([]T, 0)
@@ -42,13 +46,21 @@ func getQueryAs[T any](ctx *gin.Context, key string, parser func(string) (T, err
 	for _, stringVal := range ctx.QueryArray(key) {
 		var value T
 		var err error
+		var ok bool
+
+		if stringVal == "" {
+			continue
+		}
 
 		if parser == nil {
-			value, _ = any(stringVal).(T)
+			value, ok = any(stringVal).(T)
+			if !ok {
+				return nil, fmt.Errorf("%w: not a %T", newBadQuery(key), value)
+			}
 		} else {
 			value, err = parser(stringVal)
 			if err != nil {
-				return nil, fmt.Errorf("%w: %v", errBadQuery, err)
+				return nil, fmt.Errorf("%w: %v", newBadQuery(key), err)
 			}
 		}
 		values = append(values, value)

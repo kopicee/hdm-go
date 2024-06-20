@@ -35,7 +35,5 @@ func (ctrl hotelsController) Find(ctx *gin.Context) {
 		return
 	}
 
-	ctrl.Resolve(ctx, gin.H{
-		"hotels": found,
-	})
+	ctrl.Resolve(ctx, found)
 }
