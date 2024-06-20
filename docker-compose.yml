@@ -1,5 +1,5 @@
 services:
-  hdm-go:
+  app:
     build:
       context: .
       dockerfile_inline: |

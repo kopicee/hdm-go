@@ -1,7 +1,11 @@
 default: help
 
-up: ## Start the app
-	docker compose up
+up: ## Start the app using Docker Compose
+	docker compose up --remove-orphans --build --detach
+
+run: ## Start the app using native Go installation
+	go build -o hdm-go
+	./hdm-go
 
 test:  ## Run unit tests
 	go install gotest.tools/gotestsum@v1.8.1
