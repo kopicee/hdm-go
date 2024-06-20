@@ -8,11 +8,11 @@ import (
 	"github.com/kopicee/hdm-go/lib/model"
 )
 
-type dto interface {
+type adapter interface {
 	adapt() *model.Hotel
 }
 
-func adaptAll[T dto](adapters []T) []*model.Hotel {
+func adaptAll[T adapter](adapters []T) []*model.Hotel {
 	result := make([]*model.Hotel, len(adapters))
 	for i, dto := range adapters {
 		result[i] = dto.adapt()
