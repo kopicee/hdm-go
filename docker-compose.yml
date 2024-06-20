@@ -1,0 +1,13 @@
+services:
+  hdm-go:
+    build:
+      context: .
+      dockerfile_inline: |
+        FROM golang:1.20
+        WORKDIR /app
+        EXPOSE 3000
+        COPY . ./
+        RUN go build -o ./hdm-go
+        ENTRYPOINT ["./hdm-go"]
+    ports:
+      - '3000:3000'
