@@ -14,7 +14,7 @@ curl 'http://localhost:3000/api/hotels'
 curl 'http://localhost:3000/api/hotels?id=SjyX'
 curl 'http://localhost:3000/api/hotels?id=SjyX&id=f8c9' 
 
-# Filter by one or more destination
+# Filter by one or more destinations
 curl 'http://localhost:3000/api/hotels?destination=1122'
 curl 'http://localhost:3000/api/hotels?destination=1122&destination=5432'
 
