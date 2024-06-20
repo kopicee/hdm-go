@@ -3,7 +3,7 @@ package normalize
 import (
 	"strings"
 
-	"github.com/kopicee/hdm-go/functional"
+	"github.com/kopicee/hdm-go/lib/functional"
 	"github.com/kopicee/hdm-go/lib/model"
 )
 

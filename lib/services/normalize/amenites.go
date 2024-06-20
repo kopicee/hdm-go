@@ -4,7 +4,7 @@ import (
 	"strings"
 
 	"github.com/fatih/camelcase"
-	"github.com/kopicee/hdm-go/functional"
+	"github.com/kopicee/hdm-go/lib/functional"
 	"github.com/kopicee/hdm-go/lib/model"
 )
 

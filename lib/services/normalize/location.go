@@ -4,7 +4,7 @@ import (
 	"strings"
 
 	"github.com/biter777/countries"
-	"github.com/kopicee/hdm-go/functional"
+	"github.com/kopicee/hdm-go/lib/functional"
 	"github.com/kopicee/hdm-go/lib/model"
 )
 

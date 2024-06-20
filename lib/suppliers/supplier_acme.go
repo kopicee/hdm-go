@@ -8,7 +8,7 @@ import (
 	"time"
 
 	"github.com/carlmjohnson/requests"
-	"github.com/kopicee/hdm-go/functional"
+	"github.com/kopicee/hdm-go/lib/functional"
 	"github.com/kopicee/hdm-go/lib/model"
 )
 
